@@ -49,6 +49,17 @@ double F_odd( double E, double V_0, double A ){
   return F;
 }
 
+void Graph(double V_0,double A,double DELTA_E){
+  double E = -V_0 + 0.001*V_0;
+  while( E < 0 )
+  {
+    plik_out_1 <<E<<"   "<< F_even(E,V_0,A)<<"   "<< F_odd(E,V_0,A)<< "   \n";
+    E = E + DELTA_E;
+  }
+}
+
+
+
 ///////////////////////////////////////////////////////////////////////////////
 int main(){
     double V_0 = V_0_min;
@@ -69,7 +80,7 @@ int main(){
         {
         for(int j = 0;j<m;j++)
             {
-            plik_out_1<<"\n\n["<<i<<":"<<j<<"]V_0:  "<<V_0<<"  A: "<<A<<"\n\n";
+            
             bool E_1 = false;
             int counter = 0;
             
@@ -77,14 +88,7 @@ int main(){
 
             //zapisujemy do pliku wartoœci funkcji ³¹czenia - gdy 0 to g³adkie ³¹czenie
 
-            E = -V_0 + 0.001*V_0;
-            while( E < 0 ){
-                plik_out_1 << E         << "   "
-                    << F_even(E,V_0,A) << "   "
-                    << F_odd(E,V_0,A)  << "   "
-                    << endl;
-                E = E + DELTA_E;
-            }
+            
 
             // szukamy energii przy których wystêpuj¹ g³adkie ³¹czenia na granicy studni
 
@@ -102,6 +106,8 @@ int main(){
                       {
                         if(!E_1){
                           plik_out_2<<"\n\nV_0: "<<V_0<<" A: "<<A<<endl;
+                          plik_out_1<<"\n\n["<<i<<":"<<j<<"]V_0:  "<<V_0<<"  A: "<<A<<"\n\n";
+                          Graph(V_0,A,DELTA_E);
                         }
                         plik_out_2 << counter << " " << E_0 << endl;
                         E_1 = true;
@@ -121,6 +127,8 @@ int main(){
                       {
                         if(!E_1){
                           plik_out_2<<"\n\nV_0: "<<V_0<<" A: "<<A<<endl;
+                          plik_out_1<<"\n\n["<<i<<":"<<j<<"]V_0:  "<<V_0<<"  A: "<<A<<"\n\n";
+                          Graph(V_0,A,DELTA_E);
                         }
                         plik_out_2 << counter << " " << E_0 << endl;
                         E_1 = true;
