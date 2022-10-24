@@ -82,13 +82,15 @@ int main(){
             {
             
             bool E_1 = false;
+            bool E_2 = false;
             int counter = 0;
             
             
 
             //zapisujemy do pliku wartoœci funkcji ³¹czenia - gdy 0 to g³adkie ³¹czenie
 
-            
+            //plik_out_1<<"\n\n["<<i<<":"<<j<<"]V_0:  "<<V_0<<"  A: "<<A<<"\n\n";
+            //Graph(V_0,A,DELTA_E);
 
             // szukamy energii przy których wystêpuj¹ g³adkie ³¹czenia na granicy studni
 
@@ -102,15 +104,22 @@ int main(){
                 E_0 = Zero(E, E+DELTA_E, EPSILON,V_0,A, F_even);
                   if(E_0>=E_H-EPSILON_E_H && E_0<=E_H+EPSILON_E_H)
                     {
-                      if((E_1 || E_H==-1.0/2.0))
+                      if(E_1 || E_H==-1.0/2.0)
                       {
                         if(!E_1){
                           plik_out_2<<"\n\nV_0: "<<V_0<<" A: "<<A<<endl;
+                          
+                          E_1 = true;
+                        }
+                        else if(!E_2 && E_H==-1.0/8.0){
                           plik_out_1<<"\n\n["<<i<<":"<<j<<"]V_0:  "<<V_0<<"  A: "<<A<<"\n\n";
                           Graph(V_0,A,DELTA_E);
+                          E_2 = true;
                         }
-                        plik_out_2 << counter << " " << E_0 << endl;
-                        E_1 = true;
+                        if(E_1 && (E_2 || E_H==-1.0/2.0)){
+                          plik_out_2 << counter << " " << E_0 << endl;
+                        }
+                        
                       }
                     }
 
@@ -123,15 +132,20 @@ int main(){
                 E_0 = Zero(E, E+DELTA_E, EPSILON,V_0,A, F_odd);
                 if(E_0>=E_H-EPSILON_E_H && E_0<=E_H+EPSILON_E_H)
                     {
-                      if((E_1 || E_H==-1/2))
+                      if(E_1 || E_H==-1.0/2.0)
                       {
                         if(!E_1){
                           plik_out_2<<"\n\nV_0: "<<V_0<<" A: "<<A<<endl;
+                          E_1 = true;
+                        }
+                        else if(!E_2 && E_H==-1.0/8.0){
                           plik_out_1<<"\n\n["<<i<<":"<<j<<"]V_0:  "<<V_0<<"  A: "<<A<<"\n\n";
                           Graph(V_0,A,DELTA_E);
+                          E_2 = true;
                         }
-                        plik_out_2 << counter << " " << E_0 << endl;
-                        E_1 = true;
+                        if(E_1 && (E_2 || E_H==-1.0/2.0)){
+                          plik_out_2 << counter << " " << E_0 << endl;
+                        }
                       }
                     }
                 }
