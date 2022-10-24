@@ -53,7 +53,7 @@ void Graph(double V_0,double A,double DELTA_E){
   double E = -V_0 + 0.001*V_0;
   while( E < 0 )
   {
-    plik_out_1 <<E<<"   "<< F_even(E,V_0,A)<<"   "<< F_odd(E,V_0,A)<< "   \n";
+    plik_out_1 <<E<<"\t"<<F_even(E,V_0,A)<<"\t"<< F_odd(E,V_0,A)<<"\n";
     E = E + DELTA_E;
   }
 }
