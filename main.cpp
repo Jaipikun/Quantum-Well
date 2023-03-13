@@ -6,12 +6,12 @@ using namespace std;
 
 ///////////////////////////////////////////////////////////////////////////////
 #define V_0_min 0
-#define V_0_max 5   // g³êbokoœæ studni potencja³u - energia potencjalna
+#define V_0_max 10   // g³êbokoœæ studni potencja³u - energia potencjalna
 #define A_min 0
 #define A_max 10    // szerokoœæ studni potencja³u
-#define Step_V_0 0.1
-#define Step_A 0.1
-#define EPSILON_E_H 0.05
+#define Step_V_0 0.01
+#define Step_A 0.01
+#define EPSILON_E_H 0.005
 //#define EPSILON V_0 / 100000.0 // precyzja wyznaczenia energii
 //#define DELTA_E V_0 / 100.0  // przedzia³y energii, w ka¿dym szukamy max 1 miejsca zerowego
 ///////////////////////////////////////////////////////////////////////////////
@@ -102,7 +102,7 @@ int main(){
                 if( F_even(E,V_0,A)*F_even(E+DELTA_E,V_0,A) < 0 ){
                 counter++;
                 E_0 = Zero(E, E+DELTA_E, EPSILON,V_0,A, F_even);
-                  if(E_0>=E_H-EPSILON_E_H && E_0<=E_H+EPSILON_E_H)
+                  if(E_0>=E_H-(EPSILON_E_H/pow(10,counter-1)) && E_0<=E_H+(EPSILON_E_H/pow(10,counter-1)))
                     {
                       if(E_1 || E_H==-1.0/2.0)
                       {
@@ -117,7 +117,7 @@ int main(){
                           E_2 = true;
                         }
                         if(E_1 && (E_2 || E_H==-1.0/2.0)){
-                          plik_out_2 << counter << " " << E_0 << endl;
+                          plik_out_2 << counter << " " << E_0 << " " << EPSILON_E_H/pow(10,counter-1) << endl;
                         }
                         
                       }
@@ -130,7 +130,7 @@ int main(){
                 if( F_odd(E,V_0,A)*F_odd(E+DELTA_E,V_0,A) < 0 ){
                 counter++;
                 E_0 = Zero(E, E+DELTA_E, EPSILON,V_0,A, F_odd);
-                if(E_0>=E_H-EPSILON_E_H && E_0<=E_H+EPSILON_E_H)
+                if(E_0>=E_H-(EPSILON_E_H/pow(10,counter-1)) && E_0<=E_H+(EPSILON_E_H/pow(10,counter-1)))
                     {
                       if(E_1 || E_H==-1.0/2.0)
                       {
@@ -144,7 +144,7 @@ int main(){
                           E_2 = true;
                         }
                         if(E_1 && (E_2 || E_H==-1.0/2.0)){
-                          plik_out_2 << counter << " " << E_0 << endl;
+                          plik_out_2 << counter << " " << E_0 << " " << EPSILON_E_H/pow(10,counter-1) << endl;
                         }
                       }
                     }
